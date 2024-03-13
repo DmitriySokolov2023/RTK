@@ -1,14 +1,20 @@
 import {useDispatch, useSelector} from "react-redux";
-import {incrementInitialState} from "./store/favorites/favorites.slice.js";
+import {toggleFavorites} from "./store/favorites/favorites.slice.js";
+import RecipeItem from "./recipe-item/RecipeItem.jsx";
 
+
+const recipes = [
+    {id:1, name:'Recipe1'},
+    {id:2, name:'Recipe2'},
+]
 
 function App() {
-    const count = useSelector(state => state.favorites.value)
-    const dispatch = useDispatch()
+
   return (
     <>
-        <button onClick={()=> dispatch(incrementInitialState())}>+</button>
-        <p>{count}</p>
+        {recipes.map(recipe =>
+            <RecipeItem recipe={recipe} key={recipe.id}/>
+        )}
     </>
   )
 }

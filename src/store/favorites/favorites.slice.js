@@ -3,14 +3,20 @@ import {createSlice} from "@reduxjs/toolkit";
 
 export const favoritesSlice = createSlice({
     name:'favorites',
-    initialState:{
-        value:0
-    },
-    reducers:{
-        incrementInitialState: (state)=>{
-            state.value +=1
+    initialState:[],
+    reducers: {
+        toggleFavorites: (state, {payload: recipe}) => {
+            const isExist = state.some(r => r.id === recipe.id)
+
+            if(isExist){
+                const index = state.findIndex(r => r.id === recipe.id)
+                if(index !== -1){
+                    state.splice(index, 1)
+                }
+            }
+            else state.push(recipe)
         }
     }
 })
 
-export const { incrementInitialState } = favoritesSlice.actions
+export const actions = favoritesSlice
